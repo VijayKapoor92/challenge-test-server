@@ -20,4 +20,11 @@ router.put("/:id", async (req, res) => {
   const { rows } = await db.query(query, [req.body.nm_categoria, id_categoria]);
   res.status(200).send(rows);
 });
+
+router.delete("/:id", async (req, res) => {
+  const id_categoria = req.params.id;
+  const { rows } = await db.query("DELETE FROM categorias WHERE id_categoria = $1", [id_categoria]);
+  res.status(200).send(rows);
+});
+
 module.exports = router;

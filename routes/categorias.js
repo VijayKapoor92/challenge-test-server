@@ -13,4 +13,11 @@ router.post("/", async (req, res) => {
   const { rows } = await db.query(query, [req.body.nm_categoria]);
   res.status(200).send(rows);
 });
+
+router.put("/:id", async (req, res) => {
+  const id_categoria = req.params.id;
+  const query = "UPDATE categorias SET nm_categoria = $1 WHERE id_categoria = $2 RETURNING *";
+  const { rows } = await db.query(query, [req.body.nm_categoria, id_categoria]);
+  res.status(200).send(rows);
+});
 module.exports = router;

@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const query = "INSERT INTO categorias (nm_categoria) VALUES ($1)";
   const { rows } = await db.query(query, [req.body.nm_categoria]);
-  res.status(200).send(rows);
+  res.status(201).send(rows);
 });
 
 router.put("/:id", async (req, res) => {

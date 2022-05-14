@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
   ]
 
   const { rows } = await db.query(query, params);
-  res.status(200).send(rows);
+  res.status(201).send(rows);
 });
 
 router.put("/:id", async (req, res) => {

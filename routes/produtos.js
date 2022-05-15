@@ -25,6 +25,8 @@ router.post("/", async (req, res) => {
   (nm_produto, qt_produto, vl_produto, id_categoria) 
   VALUES 
   ($1, $2, $3, $4)
+
+  RETURNING *
   `;
 
   let vl_produto = req.body.vl_produto;

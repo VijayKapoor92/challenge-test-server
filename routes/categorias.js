@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const query = "INSERT INTO categorias (nm_categoria) VALUES ($1)";
+  const query = "INSERT INTO categorias (nm_categoria) VALUES ($1) RETURNING *";
   const { rows } = await db.query(query, [req.body.nm_categoria]);
   res.status(201).send(rows);
 });

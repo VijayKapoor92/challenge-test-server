@@ -27,10 +27,14 @@ router.post("/", async (req, res) => {
   ($1, $2, $3, $4)
   `;
 
+  let vl_produto = req.body.vl_produto;
+  if (vl_produto.includes(","))
+    vl_produto = vl_produto.replace(",", ".");
+
   const params = [
     req.body.nm_produto,
     req.body.qt_produto,
-    req.body.vl_produto,
+    vl_produto,
     req.body.id_categoria
   ]
 

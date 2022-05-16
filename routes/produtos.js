@@ -77,11 +77,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/import", upload.single("file"), async (req, res) => {
-  const { id_categoria } = req.body;
   const file = req.file;
 
   let data = JSON.parse(fs.readFileSync(file.path));
-  let payload = null;
   if (!data.length)
     res.send({
       status: -1,
@@ -89,7 +87,7 @@ router.post("/import", upload.single("file"), async (req, res) => {
       payload: []
     });
   
-  let response_array = [];
+  let payload = [];
   let i = 0;
   while(i < data.length) {
     const produto = data[i];

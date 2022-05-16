@@ -129,4 +129,29 @@ router.post("/import", upload.single("file"), async (req, res) => {
     payload
   });
 });
+
+router.post("/:id/export", async (req, res) => {
+  try {
+    const query = `
+    SELECT pro.id_produto,
+          pro.nm_produto,
+          pro.qt_produto,
+          pro.vl_produto,
+          pro.id_categoria,
+          cat.nm_categoria
+      FROM produtos pro,
+          categorias cat
+    WHERE cat.id_categoria = $1
+    `;
+    const { rows } = await db.query(query, [req.params.id]);
+    res.status(200).send({
+      status: 1,
+      message: "",
+      payload: rows
+    });
+  } catch(err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;

@@ -118,7 +118,7 @@ router.post("/import", upload.single("file"), async (req, res) => {
       ]
 
       const { rows } = await db.query(query, params);
-      response_array.push(rows[0]);
+      payload.push(rows[0]);
       i++;
     } catch(err) {
       console.error(err);
@@ -128,7 +128,7 @@ router.post("/import", upload.single("file"), async (req, res) => {
   res.status(201).send({
     status: 1,
     message: "Produtos importados com sucesso!",
-    payload: response_array
+    payload
   });
 });
 module.exports = router;

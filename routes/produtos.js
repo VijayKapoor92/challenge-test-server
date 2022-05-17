@@ -141,7 +141,8 @@ router.post("/:id/export", async (req, res) => {
           cat.nm_categoria
       FROM produtos pro,
           categorias cat
-    WHERE cat.id_categoria = $1
+    WHERE pro.id_categoria = cat.id_categoria 
+      AND cat.id_categoria = $1
     `;
     const { rows } = await db.query(query, [req.params.id]);
     res.status(200).send({

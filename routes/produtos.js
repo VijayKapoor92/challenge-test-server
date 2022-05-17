@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
   ]
 
   const { rows } = await db.query(query, params);
-  res.status(201).send(rows);
+  res.status(201).send(rows[0]);
 });
 
 router.put("/:id", async (req, res) => {
@@ -73,7 +73,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const id_produto = req.params.id;
   const { rows } = await db.query("DELETE FROM produtos WHERE id_produto = $1", [id_produto]);
-  res.status(200).send(rows);
+  res.status(200).send(rows[0]);
 });
 
 router.post("/import", upload.single("file"), async (req, res) => {

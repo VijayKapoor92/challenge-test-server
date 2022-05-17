@@ -5,8 +5,14 @@ const router = new Router();
 
 module.exports = router;
 
-router.get("/", async (req, res) => {
-  const { rows } = await db.query("SELECT * FROM categorias");
+router.get("/", async (_, res) => {
+  const query = `
+  SELECT cat.id_categoria,
+         cat.nm_categoria,
+         (select count(*) from produtos where id_categoria = cat.id_categoria) as tl_produtos
+    FROM categorias cat
+  `;
+  const { rows } = await db.query(query);
   res.status(200).send(rows);
 });
 

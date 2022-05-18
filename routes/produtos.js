@@ -10,7 +10,11 @@ const router = new Router();
 
 router.get("/", async (_, res) => {
   const { rows } = await db.query(queries.produtos.getAll);
-  res.status(200).send(rows);
+  const payload = rows.map(r => {
+    r.vl_produto = r.vl_produto.toString().replace(".", ",");
+    return r;
+  })
+  res.status(200).send(payload);
 });
 
 router.post("/", async (req, res) => {

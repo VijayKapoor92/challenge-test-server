@@ -10,10 +10,10 @@ pool.on('error', (err, client) => {
 });
 
 pool.connect((err, client, done) => {
+  done()
   if (err) throw err
 
   client.query("SELECT * FROM CATEGORIAS", (err, res) => {
-    done()
     if (!res) {
       client.query("create table categorias (id_categoria SERIAL primary key, nm_categoria VARCHAR(50) not null);");
       client.query("create table produtos (id_produto SERIAL primary key, nm_produto VARCHAR(100) not null, qt_produto INTEGER default 0, vl_produto NUMERIC(9, 2) not null, id_categoria INTEGER not null, constraint fk_categoria foreign key(id_categoria) references categorias(id_categoria))");

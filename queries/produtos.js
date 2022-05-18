@@ -7,7 +7,19 @@ module.exports = {
   
   delete: `DELETE FROM produtos WHERE id_produto = $1`,
 
-  importByName: `INSERT INTO produtos (nm_produto, qt_produto, vl_produto, id_categoria) (SELECT $1 AS nm_produto, $2 AS qt_produto, $3 AS vl_produto, (SELECT id_categoria from categorias WHERE LOWER(nm_categoria) = LOWER($4)) AS id_categoria) RETURNING *`,
-
-  importById: `INSERT INTO produtos (nm_produto, qt_produto, vl_produto, id_categoria) (SELECT $1 AS nm_produto, $2 AS qt_produto, $3 AS vl_produto, $4 AS id_categoria) RETURNING *`
+  import: `
+  WITH old AS (
+    SELECT $1::text AS nm_produto, 
+           $2::integer AS qt_produto, 
+           $3::numeric AS vl_produto, 
+           $4::integer AS id_categoria,
+           (SELECT nm_categoria FROM categorias WHERE id_categoria = $4::integer)
+  ),
+  new AS (
+    INSERT INTO produtos
+    (nm_produto, qt_produto, vl_produto, id_categoria)
+    (SELECT nm_produto, qt_produto, vl_produto, id_categoria FROM old)
+  )
+  SELECT * FROM old;
+  `
 }

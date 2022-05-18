@@ -13,6 +13,10 @@ router.get("/", async (_, res) => {
 
 router.post("/", async (req, res) => {
   const { rows } = await db.query(queries.categorias.insert, [req.body.nm_categoria]);
+  
+  let payload = rows[0];
+  payload.tl_produtos = 0;
+
   res.status(201).send(rows);
 });
 

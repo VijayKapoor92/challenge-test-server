@@ -1,5 +1,5 @@
 module.exports = {
-  getAll: `SELECT cat.id_categoria, cat.nm_categoria, (SELECT COUNT(*) FROM produtos WHERE id_categoria = cat.id_categoria) AS tl_produtos FROM categorias cat`,
+  getAll: `SELECT cat.id_categoria, cat.nm_categoria, COALESCE((SELECT COUNT(*) FROM produtos WHERE id_categoria = cat.id_categoria), 0) AS tl_produtos FROM categorias cat`,
   
   insert: `INSERT INTO categorias (nm_categoria) VALUES ($1) RETURNING *`,
   

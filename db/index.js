@@ -11,7 +11,7 @@ pool.on('error', (err, client) => {
 
 pool.connect((err, client, done) => {
   done()
-  if (err) throw err
+  if (err) throw err;
 
   client.query("SELECT * FROM CATEGORIAS", (err, res) => {
     if (!res) {

@@ -1,6 +1,6 @@
 const bodyParser = require("body-parser");
 const routes = require("./routes")
-const port = 3001;
+const port = 8080;
 
 module.exports = app => {
   app.use(bodyParser.json());
